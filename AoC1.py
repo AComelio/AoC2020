@@ -47,6 +47,8 @@ def prod_from_sum_target(num_list, comb_size, target):
             return comb, reduce(lambda x, y: x*y, comb)
 
 print('Part 1 solution: {}'.format(prod_from_sum_target(expenses, 2, 2020)))
+print('Part 1 done in {} nanoseconds'.format((time.process_time_ns()-st)))
+st = time.process_time_ns()
 
 '''
 --- Part Two ---
@@ -59,4 +61,4 @@ In your expense report, what is the product of the three entries that sum to 202
 
 print('Part 2 solution: {}'.format(prod_from_sum_target(expenses, 3, 2020)))
 
-print('Done in {} seconds'.format((time.process_time_ns()-st)/1000000000))
+print('Part 2 done in {} seconds'.format((time.process_time_ns()-st)/1000000000))
