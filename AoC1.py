@@ -34,21 +34,18 @@ Of course, your expense report is much larger. Find the two entries that sum to 
 
 from itertools import combinations
 from functools import reduce
-import time
+from utils import time_me
 
 with open('Inputs/day1.txt', 'r') as f:
     expenses = tuple(map(int, f.read().split('\n')))
 
-st = time.process_time_ns()
-
+@time_me
 def prod_from_sum_target(num_list, comb_size, target):
     for comb in combinations(num_list, comb_size):
         if sum(comb) == target:
             return comb, reduce(lambda x, y: x*y, comb)
 
 print('Part 1 solution: {}'.format(prod_from_sum_target(expenses, 2, 2020)))
-print('Part 1 done in {} nanoseconds'.format((time.process_time_ns()-st)))
-st = time.process_time_ns()
 
 '''
 --- Part Two ---
@@ -60,5 +57,3 @@ In your expense report, what is the product of the three entries that sum to 202
 '''
 
 print('Part 2 solution: {}'.format(prod_from_sum_target(expenses, 3, 2020)))
-
-print('Part 2 done in {} seconds'.format((time.process_time_ns()-st)/1000000000))

@@ -26,7 +26,7 @@ In the above example, 2 passwords are valid. The middle password, cdefg, is not;
 How many passwords are valid according to their policies?
 """
 
-import time
+from utils import time_me
 
 with open('Inputs/day2.txt', 'r') as f:
     passwords = f.readlines()
@@ -51,19 +51,15 @@ def check_line(line, part):
         return check_password_p1(letter, vals, password)
     return check_password_p2(letter, vals, password)
 
-st = time.process_time_ns()
-pst = time.perf_counter_ns()
+@time_me
+def check_passwords(passwords, part):
+    count = 0
+    for line in passwords:
+        if check_line(line, part):
+            count += 1
+    return count
 
-count = 0
-for line in passwords:
-    if check_line(line, 1):
-        count += 1
-
-print('Part 1 count: ' + str(count))
-print('Part 1 done in {} nanoseconds process time'.format((time.process_time_ns()-st)))
-print('Part 1 done in {} seconds real time'.format((time.perf_counter_ns()-pst)/1e9))
-mt = time.process_time_ns()
-pmt = time.perf_counter_ns()
+print('Part 1 count: ' + str(check_passwords(passwords, 1)))
 
 """
 --- Part Two ---
@@ -81,13 +77,4 @@ Given the same example list from above:
 How many passwords are valid according to the new interpretation of the policies?
 """
 
-count = 0
-for line in passwords:
-    if check_line(line, 2):
-        count += 1
-
-print('Part 2 count: ' + str(count))
-print('Part 2 done in {} nanoseconds'.format((time.process_time_ns()-mt)))
-print('Part 2 done in {} seconds real time'.format((time.perf_counter_ns()-pmt)/1e9))
-print('Both parts done in {} nanoseconds process time'.format((time.process_time_ns()-st)))
-print('Both parts done in {} seconds real time'.format((time.perf_counter_ns()-pst)/1e9))
+print('Part 2 count: ' + str(check_passwords(passwords, 2)))
