@@ -218,25 +218,3 @@ Count the number of valid passports - those that have all required fields and va
 """
 
 print('{} valid passports'.format(count_valid(input_text, keys, 2)))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
