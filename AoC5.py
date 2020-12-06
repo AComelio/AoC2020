@@ -53,8 +53,11 @@ from utils import time_me, tokenise_input_file
 boarding_passes = tokenise_input_file('Inputs/day5.txt', '\n')
 
 def code_to_seat(boarding_pass):
-    seat_bin = boarding_pass.replace('F', '0').replace('B', '1').replace('L', '0').replace('R', '1')
-    return int(seat_bin, 2)
+    for c in ('F', 'L'):
+        boarding_pass = boarding_pass.replace(c, '0')
+    for c in ('B', 'R'):
+        boarding_pass = boarding_pass.replace(c, '1')
+    return int(boarding_pass, 2)
 
 @time_me
 def part1(boarding_passes):
