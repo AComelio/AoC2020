@@ -51,6 +51,7 @@ For each group, count the number of questions to which anyone answered "yes". Wh
 """
 
 from utils import time_me, tokenise_input_file
+from functools import reduce
 
 groups = tokenise_input_file('Inputs/day6.txt', '\n\n')
 
@@ -100,12 +101,8 @@ For each group, count the number of questions to which everyone answered "yes". 
 
 @time_me
 def part2(groups):
-    lengths = list()
-    for group in groups:
-        answers = {chr(i) for i in range(97, 123)}
-        for line in group.split('\n'):
-            answers = answers & set(line)
-        lengths.append(len(answers))
+    lengths = (len(reduce(lambda a, b: set(a) & set(b), group.split('\n')))
+               for group in groups)
     return sum(lengths)
 
 print('The sum of shared answers in each group is %s' % part2(groups))
