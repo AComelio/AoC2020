@@ -37,7 +37,6 @@ How many bag colors can eventually contain at least one shiny gold bag? (The lis
 """
 
 from utils import tokenise_input_file, time_me
-from collections import defaultdict
 
 rules = tokenise_input_file('Inputs/day7.txt')
 
@@ -63,6 +62,16 @@ def process_rules(rules):
     return rules_dict
 
 @time_me
+def part1_no_recursion(rules):
+    import networkx
+    g = networkx.DiGraph()
+    for rule in rules:
+        k, v = process_rule(rule)
+        for dest, num in v:
+            g.add_edge(k, dest, weight=num)
+    return sum(networkx.has_path(g, n, 'shiny gold') for n in g if n != 'shiny gold')
+
+@time_me
 def part1(rules):
     def search_dict(rules_dict, val, goal):
         t = 0
@@ -79,7 +88,7 @@ def part1(rules):
             t += 1
     return t
 
-print('%s bags could eventually contain a shiny gold bag' % part1(rules))
+print('%s bags could eventually contain a shiny gold bag' % part1_no_recursion(rules))
 
 """
 --- Part Two ---
