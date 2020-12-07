@@ -88,8 +88,10 @@ def part1(rules):
             t += 1
     return t
 
-print('%s bags could eventually contain a shiny gold bag' % part1_no_recursion(rules))
-
+print('%s bags could eventually contain a shiny gold bag no recursion' % part1_no_recursion(rules))
+print()
+print('%s bags could eventually contain a shiny gold bag with recursion' % part1(rules))
+print()
 """
 --- Part Two ---
 It's getting pretty expensive to fly these days - not because of ticket prices, but because of the ridiculous number of bags you need to buy!
