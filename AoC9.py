@@ -120,11 +120,28 @@ def contig_gen(numbers):
         for j in range(i+2, len(numbers)+1):
             yield numbers[i:j]
 
+def get_continuous_set_that_sum_to_target(nums, target):
+    sum_of_set = 0
+    left_ix = 0
+    right_ix = 0
+    # sliding window solution
+    while left_ix <= right_ix < len(nums):
+        next_num = nums[right_ix]
+        if sum_of_set + next_num < target:
+            sum_of_set += next_num
+            right_ix += 1
+        elif sum_of_set + next_num == target:
+            return nums[left_ix: right_ix + 1]
+        else:
+            while sum_of_set + next_num > target:
+                sum_of_set -= nums[left_ix]
+                left_ix += 1
+    return None
+
 @time_me
 def part2(numbers):
     goal = first_bad(numbers, 25)
-    for l in contig_gen(numbers):
-        if sum(l) == goal:
-            return min(l) + max(l)
+    l = get_continuous_set_that_sum_to_target(numbers, goal)
+    return min(l) + max(l)
 
 print('Part 2 solution: %s' % part2(numbers))
