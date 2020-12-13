@@ -73,17 +73,17 @@ def part1_no_recursion(rules):
 
 @time_me
 def part1(rules):
-    def search_dict(rules_dict, val, goal):
+    def search_dict(val, goal):
         t = 0
         for colour, _ in rules_dict[val]:
             if colour == goal:
                 t += 1
-            t += search_dict(rules_dict, colour, goal)
+            t += search_dict(colour, goal)
         return t
     rules_dict = process_rules(rules)
     t = 0
     for k in rules_dict:
-        r = search_dict(rules_dict, k, 'shiny gold')
+        r = search_dict(k, 'shiny gold')
         if r:
             t += 1
     return t
